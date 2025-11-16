@@ -15,7 +15,7 @@ func wakatimeData() (WakatimeUserStats, error) {
 
 	// Set headers
 	req.Header.Set("Accept", "application/json")
-	req.Header.Set("Authorization", fmt.Sprintf("Basic %s", wakatimeClient.apikey))
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", wakatimeClient.apikey))
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
