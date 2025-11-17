@@ -1,6 +1,6 @@
 package main
 
-import "github.com/taciturnaxolotl/markscribe/literal"
+import "github.com/lazylllama/markscribe/literal"
 
 func literalClubCurrentlyReading(count int) []literal.Book {
 	books, err := literal.CurrentlyReading()

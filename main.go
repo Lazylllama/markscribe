@@ -15,11 +15,12 @@ import (
 )
 
 var (
-	gitHubClient    *githubv4.Client
-	goodReadsClient *goodreads.Client
-	wakatimeClient  *Wakatime
-	goodReadsID     string
-	username        string
+	gitHubClient      *githubv4.Client
+	goodReadsClient   *goodreads.Client
+	wakatimeClient    *Wakatime
+	animePlanetClient *AnimePlanet
+	goodReadsID       string
+	username          string
 
 	write = flag.String("write", "", "write output to")
 )
@@ -67,6 +68,8 @@ func main() {
 	funcMap["wakatimeData"] = wakatimeData
 	funcMap["wakatimeCategoryBar"] = wakatimeCategoryBar
 	funcMap["wakatimeDoubleCategoryBar"] = wakatimeDoubleCategoryBar
+	/* Anime-Planet */
+	funcMap["animePlanetData"] = animePlanetData
 
 	tpl, err := template.New("tpl").Funcs(funcMap).Parse(string(tplIn))
 	if err != nil {
@@ -94,6 +97,10 @@ func main() {
 	gitHubClient = githubv4.NewClient(httpClient)
 	goodReadsClient = goodreads.NewClient(goodReadsToken)
 	wakatimeClient = &Wakatime{apikey: wakatimeToken, baseurl: wakatimeUrl}
+	animePlanetClient = &AnimePlanet{
+		userId: os.Getenv("ANIME_PLANET_USER_ID"),
+		cookie: os.Getenv("ANIME_PLANET_COOKIE"),
+	}
 
 	if len(gitHubToken) > 0 {
 		username, err = getUsername()
