@@ -15,7 +15,7 @@
     - Status: `{{title .Status}}` {{if eq .Status "read"}}✅{{else if eq .Status "reading"}}▶️{{else}}📋{{end}}
     - Rating: {{if gt .Rating 0}}⭐ {{.Rating}}/5{{else}}Not rated{{end}}
     {{- if not (and (eq .Status "read") (eq .Vol 1))}}
-    - Volumes: {{.Vol}} ep{{if gt .Vol 1}}s{{end}}
+    - Volumes: {{.Vol}} vol{{if gt .Vol 1}}s{{end}}
     {{- end}}
 {{- end}}
 
@@ -24,7 +24,7 @@
 {{- if eq $element.Status "reading"}}
 - 📕 **[{{.Name}}](https://www.anime-planet.com/manga/{{ regexReplaceAll "-+" (.Name | lower | replace " " "-" | replace ":" "" | replace "'" "") "-" }})**
     - Rating: {{if gt .Rating 0}}⭐ {{.Rating}}/5{{else}}Not rated{{end}}
-    - Volumes: {{.Vol}} ep{{if gt .Vol 1}}s{{end}}
+    - Volumes: {{.Vol}} vol{{if gt .Vol 1}}s{{end}}
 {{- end}}
 {{- end}}
 
