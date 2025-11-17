@@ -4,6 +4,7 @@ package main
 type AnimePlanet struct {
 	cookie string
 	userId string
+	token  string
 }
 
 type AnimePlanetUser struct {

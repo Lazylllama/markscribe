@@ -100,6 +100,7 @@ func main() {
 	animePlanetClient = &AnimePlanet{
 		userId: os.Getenv("ANIME_PLANET_USER_ID"),
 		cookie: os.Getenv("ANIME_PLANET_COOKIE"),
+		token:  os.Getenv("ANIME_PLANET_TOKEN"),
 	}
 
 	if len(gitHubToken) > 0 {

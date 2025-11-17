@@ -10,15 +10,19 @@ func animePlanetData() (AnimePlanetData, error) {
 	client := &http.Client{}
 
 	fetch := func(path string, v interface{}) error {
-		req, err := http.NewRequest(http.MethodGet, "https://www.anime-planet.com/api/export"+path+animePlanetClient.userId, nil)
+		req, err := http.NewRequest(http.MethodGet, "http://api.scrape.do/", nil)
 		if err != nil {
 			return err
 		}
 		req.Header.Set("Accept", "application/json")
-		req.Header.Set("Cookie", animePlanetClient.cookie)
 
-		// Mustve been the wind
-		req.Header.Set("User-Agent", `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36`)
+		url := path + animePlanetClient.userId
+
+		values := req.URL.Query()
+		values.Add("url", url)
+		values.Add("token", animePlanetClient.token)
+		values.Add("setCookies", "ap="+animePlanetClient.cookie)
+		req.URL.RawQuery = values.Encode()
 
 		resp, err := client.Do(req)
 		if err != nil {
@@ -38,12 +42,12 @@ func animePlanetData() (AnimePlanetData, error) {
 	}
 
 	var anime AnimePlanetAnime
-	if err := fetch("/anime/", &anime); err != nil {
+	if err := fetch("https://www.anime-planet.com/api/export/anime/", &anime); err != nil {
 		return AnimePlanetData{}, err
 	}
 
 	var manga AnimePlanetManga
-	if err := fetch("/manga/", &manga); err != nil {
+	if err := fetch("https://www.anime-planet.com/api/export/manga/", &manga); err != nil {
 		return AnimePlanetData{}, err
 	}
 
